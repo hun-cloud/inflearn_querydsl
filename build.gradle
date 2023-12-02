@@ -46,21 +46,9 @@ tasks.named('bootBuildImage') {
 }
 
 tasks.named('test') {
-	clean
 	useJUnitPlatform()
 }
 
-/// === QueryDsl 빌드 옵션 (선택) ===
-def querydslDir = "src/main/generated/querydsl"
-
-sourceSets {
-	main.java.srcDirs += [ querydslDir ]
-}
-
-tasks.withType(JavaCompile) {
-	options.generatedSourceOutputDirectory = file(querydslDir)
-}
-
-clean.doLast {
-	file(querydslDir).deleteDir()
+clean {
+	delete file("src/main/generated")
 }
